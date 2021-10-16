@@ -189,9 +189,9 @@ gulp.task("copy", ["staticJS"], function() {
     .src(jQueryFile)
     .pipe(gulp.dest(dist + "js"));
 
-  gulp
-    .src(jsonFile)
-    .pipe(gulp.dest(dist));
+  // gulp
+  //   .src(jsonFile)
+  //   .pipe(gulp.dest(dist));
 
     return gulp.src(readMe).pipe(gulp.dest(dist));
 

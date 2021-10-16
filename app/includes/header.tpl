@@ -77,7 +77,7 @@
         <section class="bg-gradient header-branding">
             <section class="container">
                 <a class="brand" href="/" aria-label="Go to homepage">
-                    <img src="images/logo-akroma-web-wallet.svg" height="64px" width="245px" alt="Akroma Web Wallet" />
+                    <img src="https://akroma.org/img/akroma.png" width="100px" alt="Akroma Web Wallet" />
                     <p class="small visible-xs">3.25.0-akroma-0</p>
                 </a>
 
@@ -195,15 +195,6 @@
             <a aria-hidden="true" ng-show="showLeftArrow" class="nav-arrow-left" ng-click="scrollLeft(100);" ng-mouseover="scrollHoverIn(true,2);" ng-mouseleave="scrollHoverOut()">&#171;</a>
             <div class="nav-scroll">
                 <ul class="nav-inner">
-                    <li class="nav-item help">
-                        <a href="https://wwwallet.akroma.org" target="_blank" rel="noopener noreferrer">
-                            <span>
-                                <strong>
-                                    Visit Akroma.io
-                                </strong>
-                            </span>
-                        </a>
-                    </li>
                     <li ng-repeat="tab in tabNames track by $index" \
                         class="nav-item {{tab.name}}" \
                         ng-class="{active: $index==gService.currentTab}"

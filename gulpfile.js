@@ -58,7 +58,6 @@ gulp.task("html", function(done) {
     .pipe(plumber({ errorHandler: onError }))
     .pipe(fileinclude({ prefix: "@@", basepath: "@file" }))
     .pipe(gulp.dest(dist))
-    .pipe(gulp.dest(dist_CX))
     .pipe(notify(onSuccess("HTML")));
 });
 
@@ -88,7 +87,6 @@ gulp.task("styles", function() {
       .pipe(cssnano({ autoprefixer: false, safe: true }))
       .pipe(rename(less_destFileMin))
       .pipe(gulp.dest(less_destFolder))
-      .pipe(gulp.dest(less_destFolder_CX))
       .pipe(notify(onSuccess("Styles")))
   );
 });
@@ -113,7 +111,6 @@ function bundle_js(bundler) {
     .pipe(buffer())
     .pipe(rename(js_destFile))
     .pipe(gulp.dest(js_destFolder))
-    .pipe(gulp.dest(js_destFolder_CX))
     .pipe(notify(onSuccess("JS")));
 }
 
@@ -125,7 +122,6 @@ function bundle_js_debug(bundler) {
     .pipe(buffer())
     .pipe(rename(js_destFile))
     .pipe(gulp.dest(js_destFolder))
-    .pipe(gulp.dest(js_destFolder_CX))
     .pipe(notify(onSuccess("JS")));
 }
 
@@ -179,40 +175,35 @@ let readMe = "./README.md";
 gulp.task("copy", ["staticJS"], function() {
   gulp
     .src(imgSrcFolder)
-    .pipe(gulp.dest(dist + "images"))
-    .pipe(gulp.dest(dist_CX + "images"));
+    .pipe(gulp.dest(dist + "images"));
 
   gulp
     .src(fontSrcFolder)
-    .pipe(gulp.dest(dist + "fonts"))
-    .pipe(gulp.dest(dist_CX + "fonts"));
+    .pipe(gulp.dest(dist + "fonts"));
 
   gulp
     .src(staticJSSrcFile)
-    .pipe(gulp.dest(dist + "js"))
-    .pipe(gulp.dest(dist_CX + "js"));
+    .pipe(gulp.dest(dist + "js"));
 
   gulp
     .src(jQueryFile)
-    .pipe(gulp.dest(dist + "js"))
-    .pipe(gulp.dest(dist_CX + "js"));
+    .pipe(gulp.dest(dist + "js"));
 
   gulp
     .src(jsonFile)
-    .pipe(gulp.dest(dist))
-    .pipe(gulp.dest(dist_CX));
+    .pipe(gulp.dest(dist));
 
-  gulp.src(readMe).pipe(gulp.dest(dist));
+    return gulp.src(readMe).pipe(gulp.dest(dist));
 
-  gulp.src(cxBackgroundFile).pipe(gulp.dest(dist_CX + "background"));
+  // gulp.src(cxBackgroundFile).pipe(gulp.dest(dist_CX + "background"));
 
-  gulp.src(bin).pipe(gulp.dest(dist + "bin"));
+  // gulp.src(bin).pipe(gulp.dest(dist + "bin"));
 
-  return gulp
-    .src(cxSrcFiles)
-    .pipe(gulp.dest(dist_CX + "browser_action"))
+  // return gulp
+  //   .src(cxSrcFiles)
+  //   .pipe(gulp.dest(dist_CX + "browser_action"))
 
-    .pipe(notify(onSuccess(" Copy ")));
+  //   .pipe(notify(onSuccess(" Copy ")));
 });
 
 // Clean files that get compiled but shouldn't
@@ -259,7 +250,7 @@ gulp.task("getVersion", function() {
 
 // zips dist folder
 gulp.task("zip", ["getVersion"], function() {
-  gulp
+  return gulp
     .src(dist + "**/**/*")
     .pipe(plumber({ errorHandler: onError }))
     .pipe(
@@ -270,12 +261,12 @@ gulp.task("zip", ["getVersion"], function() {
     .pipe(zip("./etherwallet-" + versionNum + ".zip"))
     .pipe(gulp.dest("./releases/"))
     .pipe(notify(onSuccess("Zip Dist " + versionNum)));
-  return gulp
-    .src(dist_CX + "**/**/*")
-    .pipe(plumber({ errorHandler: onError }))
-    .pipe(zip("./chrome-extension-" + versionNum + ".zip"))
-    .pipe(gulp.dest("./releases/"))
-    .pipe(notify(onSuccess("Zip CX " + versionNum)));
+  //  gulp
+  //   .src(dist_CX + "**/**/*")
+  //   .pipe(plumber({ errorHandler: onError }))
+  //   .pipe(zip("./chrome-extension-" + versionNum + ".zip"))
+  //   .pipe(gulp.dest("./releases/"))
+  //   .pipe(notify(onSuccess("Zip CX " + versionNum)));
 });
 
 function archive() {
@@ -312,7 +303,7 @@ function archive() {
 }
 
 gulp.task("travisZip", ["getVersion"], function() {
-  gulp
+  return gulp
     .src(dist + "**/**/*")
     .pipe(plumber({ errorHandler: onError }))
     .pipe(
@@ -323,12 +314,12 @@ gulp.task("travisZip", ["getVersion"], function() {
     .pipe(zip("./etherwallet-" + versionNum + ".zip"))
     .pipe(gulp.dest("./deploy/"))
     .pipe(notify(onSuccess("Zip Dist " + versionNum)));
-  return gulp
-    .src(dist_CX + "**/**/*")
-    .pipe(plumber({ errorHandler: onError }))
-    .pipe(zip("./chrome-extension-" + versionNum + ".zip"))
-    .pipe(gulp.dest("./deploy/"))
-    .pipe(notify(onSuccess("Zip CX " + versionNum)));
+  //  gulp
+  //   .src(dist_CX + "**/**/*")
+  //   .pipe(plumber({ errorHandler: onError }))
+  //   .pipe(zip("./chrome-extension-" + versionNum + ".zip"))
+  //   .pipe(gulp.dest("./deploy/"))
+  //   .pipe(notify(onSuccess("Zip CX " + versionNum)));
 });
 
 // add all
@@ -449,16 +440,12 @@ gulp.task("watch", [
   "watchLess",
   "watchPAGES",
   "watchTPL",
-  "watchCX",
-  "watchCXbackground"
 ]);
 gulp.task("watchProd", [
   "watchJSProd",
   "watchLess",
   "watchPAGES",
   "watchTPL",
-  "watchCX",
-  "watchCXbackground"
 ]);
 
 gulp.task("build", ["js", "html", "styles", "copy"]);
@@ -470,7 +457,6 @@ gulp.task("build-debug", [
   "watchLess",
   "watchPAGES",
   "watchTPL",
-  "watchCX"
 ]);
 
 gulp.task("default", ["build", "watch"]);

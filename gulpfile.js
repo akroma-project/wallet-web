@@ -215,10 +215,10 @@ gulp.task("clean", function() {
         dist_CX + "embedded.html",
         dist_CX + "index.html",
         dist_CX + "signmsg.html",
-        dist + "cx-wallet.html",
+        // dist + "cx-wallet.html",
         dist + "images/icons",
-        dist + "manifest.json",
-        dist_CX + "package.json"
+        dist + "manifest.json"
+        
       ],
       { read: false }
     )

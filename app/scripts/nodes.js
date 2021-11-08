@@ -25,8 +25,8 @@ nodes.customNodeObj = {
 nodes.nodeList = {
 	akroma_remote: {
 		name: "AKROMA",
-		blockExplorerTX: "https://explorer.akroma.io/transaction/[[txHash]]",
-		blockExplorerAddr: "https://explorer.akroma.io/address/[[address]]",
+		blockExplorerTX: "https://explorer.akroma.org/transaction/[[txHash]]",
+		blockExplorerAddr: "https://explorer.akroma.org/address/[[address]]",
 		type: nodes.nodeTypes.AKA,
 		eip155: true,
 		chainId: 200625,
